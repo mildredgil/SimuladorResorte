@@ -16,6 +16,7 @@ class ViewControllerSimulador: UIViewController {
     @IBOutlet weak var btnValues: UIButton!
     @IBOutlet weak var lbTime: UILabel!
     @IBOutlet weak var imgMass: UIImageView!
+    @IBOutlet weak var viewSimulation: UIView!
     
     var btnSelected : UIButton!
     var mass : Int = 500
@@ -29,7 +30,10 @@ class ViewControllerSimulador: UIViewController {
     var xi : Float = 80.0 // Punto inicial
     var o : Float = 0.0 // Pi si esta compactado, 0 si esta estirado
     var startingXCoord : CGFloat!
-
+    
+    let shapeLayer = CAShapeLayer()
+    var separado = CGFloat(0.02)
+    var ancho = 0.5
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +44,38 @@ class ViewControllerSimulador: UIViewController {
         btnStop.layer.cornerRadius = 4
         btnReset.layer.cornerRadius = 4
         
+        let figura = dibujarResorte(graphWidth: separado)
+        
+        shapeLayer.path = figura.cgPath
+        shapeLayer.frame = CGRect(x: 55, y: 28, width: 150, height: 300)
+        viewSimulation.layer.addSublayer(shapeLayer)
+
+        shapeLayer.strokeColor = UIColor.blue.cgColor
+        shapeLayer.fillColor = UIColor.white.cgColor
+        shapeLayer.lineWidth = CGFloat(ancho)
+        
         startingXCoord = imgMass.frame.origin.x
         xi = Float(imgMass.frame.size.width)
+    }
+    
+    func dibujarResorte(graphWidth : CGFloat) -> UIBezierPath{
+        let width = CGFloat(150.0)
+        let height = CGFloat(300.0)
+        let amplitude: CGFloat = 0.2   // Amplitude of sine wave is 30% of view height
+        let origin = CGPoint(x: 0, y: height * 0.50)
+
+        let path = UIBezierPath()
+        path.move(to: origin)
+
+        for angle in stride(from: 0.0, through: 50 * 360.0, by: 5.0) {
+            let x = origin.x + CGFloat(angle/360.0) * width * graphWidth
+            let y = origin.y - CGFloat(sin(angle/180.0 * Double.pi)) * height * amplitude
+            path.addLine(to: CGPoint(x: x, y: y))
+        }
+        
+        UIColor.black.setStroke()
+        path.stroke()
+        return path
     }
     
     @IBAction func onPause(_ sender: UIButton) {
@@ -126,9 +160,19 @@ class ViewControllerSimulador: UIViewController {
         elapsedTime += timeSpeed / timeRatio
         let posActual = getPosActual(xi: xi, k: Float(constantK), m: Float(mass)/1000, o: o, t: elapsedTime)
         let movement = Float(startingXCoord) + posActual
-        let newRect = CGRect(origin: CGPoint(x: CGFloat(movement), y: CGFloat(imgMass.frame.origin.y)), size: imgMass.frame.size)
+        let newRect = CGRect(origin: CGPoint(x: CGFloat(movement + 200), y: CGFloat(imgMass.frame.origin.y)), size: imgMass.frame.size)
+        
+        
+        shapeLayer.frame = CGRect(x: Int(movement), y: 28, width: 150, height: 300)
+        //shapeLayer.frame = CGRect(origin: CGPoint(x: CGFloat(movement), y: CGFloat(imgMass.frame.origin.y - 300)), size: CGSize(width: 150, height: 300))
         
         imgMass.frame = newRect
+        
+        
+//        shapeLayer.removeFromSuperlayer()
+//        shapeLayer.position = CGPoint(x: CGFloat(movement), y: CGFloat(imgMass.frame.origin.y - 153))
+//        viewSimulation.layer.addSublayer(shapeLayer)
+        
     }
     
     func resetPos() {
@@ -136,6 +180,7 @@ class ViewControllerSimulador: UIViewController {
         
         let movement = Float(startingXCoord)
         let newRect = CGRect(origin: CGPoint(x: CGFloat(movement), y: CGFloat(imgMass.frame.origin.y)), size: imgMass.frame.size)
+        shapeLayer.frame = CGRect(x: 55, y: 28, width: 150, height: 300)
         
         imgMass.frame = newRect
     }
