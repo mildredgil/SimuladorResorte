@@ -42,6 +42,7 @@ class ViewControllerSimulador: UIViewController {
         
         startingXCoord = imgMass.frame.origin.x
         xi = Float(imgMass.frame.size.width)
+        updatePosicion()
     }
     
     @IBAction func onPause(_ sender: UIButton) {
@@ -138,6 +139,7 @@ class ViewControllerSimulador: UIViewController {
         let newRect = CGRect(origin: CGPoint(x: CGFloat(movement), y: CGFloat(imgMass.frame.origin.y)), size: imgMass.frame.size)
         
         imgMass.frame = newRect
+        updatePosicion()
     }
     
     func getPosActual( xi: Float, k: Float, m: Float, o: Float, t: Float) -> Float{

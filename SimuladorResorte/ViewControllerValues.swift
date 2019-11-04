@@ -17,8 +17,9 @@ class ViewControllerValues: UIViewController {
     @IBOutlet weak var lbUnities: UILabel!
     @IBOutlet weak var lbMinRange: UILabel!
     @IBOutlet weak var lbMaxRange: UILabel!
+
     @IBOutlet weak var lbVariable: UILabel!
-    
+
     var btnSelected : UIButton!
     var mass : Int = 0
     var constantK : Int = 0
