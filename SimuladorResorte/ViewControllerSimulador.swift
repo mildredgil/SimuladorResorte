@@ -44,10 +44,10 @@ class ViewControllerSimulador: UIViewController {
         btnStop.layer.cornerRadius = 4
         btnReset.layer.cornerRadius = 4
         
-        let figura = dibujarResorte(graphWidth: separado)
+        let figura = dibujarResorte(graphWidth: separado,width: CGFloat(150))
         
         shapeLayer.path = figura.cgPath
-        shapeLayer.frame = CGRect(x: 55, y: 28, width: 150, height: 300)
+        shapeLayer.frame = CGRect(x: 48, y: 132, width: 150, height: 150)
         viewSimulation.layer.addSublayer(shapeLayer)
 
         shapeLayer.strokeColor = UIColor.blue.cgColor
@@ -58,9 +58,24 @@ class ViewControllerSimulador: UIViewController {
         xi = Float(imgMass.frame.size.width)
     }
     
-    func dibujarResorte(graphWidth : CGFloat) -> UIBezierPath{
-        let width = CGFloat(150.0)
-        let height = CGFloat(300.0)
+    func moverResorte() {
+//        let figura = dibujarResorte(graphWidth: 0.03)
+//        shapeLayer.path = figura.cgPath
+        while(true){
+            if separado == 0.02 {
+                separado = 0.03
+            } else if separado == 0.03 {
+                separado = 0.04
+            } else {
+                separado = 0.02
+            }
+            let figura = dibujarResorte(graphWidth: separado,width: CGFloat(150))
+            shapeLayer.path = figura.cgPath
+        }
+    }
+    
+    func dibujarResorte(graphWidth : CGFloat,width : CGFloat) -> UIBezierPath{
+        let height = CGFloat(150.0)
         let amplitude: CGFloat = 0.2   // Amplitude of sine wave is 30% of view height
         let origin = CGPoint(x: 0, y: height * 0.50)
 
@@ -160,10 +175,20 @@ class ViewControllerSimulador: UIViewController {
         elapsedTime += timeSpeed / timeRatio
         let posActual = getPosActual(xi: xi, k: Float(constantK), m: Float(mass)/1000, o: o, t: elapsedTime)
         let movement = Float(startingXCoord) + posActual
-        let newRect = CGRect(origin: CGPoint(x: CGFloat(movement + 200), y: CGFloat(imgMass.frame.origin.y)), size: imgMass.frame.size)
+//        let newRect = CGRect(origin: CGPoint(x: CGFloat(movement+200), y: CGFloat(imgMass.frame.origin.y)), size: imgMass.frame.size)
+        //moverResorte()
+        let newRect = CGRect(origin: CGPoint(x: CGFloat(movement), y: CGFloat(imgMass.frame.origin.y)), size: imgMass.frame.size)
+        if separado == 0.02 {
+            separado = 0.03
+        } else if separado == 0.03 {
+            separado = 0.04
+        } else {
+            separado = 0.02
+        }
+        let figura = dibujarResorte(graphWidth: 0.02,width: CGFloat(movement-38))
+        shapeLayer.path = figura.cgPath
         
-        
-        shapeLayer.frame = CGRect(x: Int(movement), y: 28, width: 150, height: 300)
+//        shapeLayer.frame = CGRect(x: 48, y: 28, width: Int(150-movement), height: 150)
         //shapeLayer.frame = CGRect(origin: CGPoint(x: CGFloat(movement), y: CGFloat(imgMass.frame.origin.y - 300)), size: CGSize(width: 150, height: 300))
         
         imgMass.frame = newRect
@@ -180,7 +205,10 @@ class ViewControllerSimulador: UIViewController {
         
         let movement = Float(startingXCoord)
         let newRect = CGRect(origin: CGPoint(x: CGFloat(movement), y: CGFloat(imgMass.frame.origin.y)), size: imgMass.frame.size)
-        shapeLayer.frame = CGRect(x: 55, y: 28, width: 150, height: 300)
+//        shapeLayer.frame = CGRect(x: 48, y: 132, width: 150, height: 150)
+
+        let figura = dibujarResorte(graphWidth: 0.02,width: CGFloat(150))
+        shapeLayer.path = figura.cgPath
         
         imgMass.frame = newRect
     }
