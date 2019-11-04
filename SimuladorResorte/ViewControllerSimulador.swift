@@ -23,6 +23,7 @@ class ViewControllerSimulador: UIViewController {
     var timer : Timer!
     var counter : Int = 0
     var timeSpeed : Float = 0.01
+    var timeRatio : Float = 1.0
     var elapsedTime : Float = 0.0
     
     var xi : Float = 80.0 // Punto inicial
@@ -122,7 +123,7 @@ class ViewControllerSimulador: UIViewController {
     }
     
     func updatePosicion() {
-        elapsedTime += 1 / timeSpeed
+        elapsedTime += timeSpeed / timeRatio
         let posActual = getPosActual(xi: xi, k: Float(constantK), m: Float(mass)/1000, o: o, t: elapsedTime)
         let movement = Float(startingXCoord) + posActual
         let newRect = CGRect(origin: CGPoint(x: CGFloat(movement), y: CGFloat(imgMass.frame.origin.y)), size: imgMass.frame.size)
@@ -146,8 +147,20 @@ class ViewControllerSimulador: UIViewController {
     @IBAction func switchChange(_ sender: UISwitch) {
         if sender.isOn {
             timeSpeed = 0.1
+            timeRatio = 10.0
         } else {
             timeSpeed = 0.01
+            timeRatio = 1.0
+        }
+        
+        updateTimer(x : timeSpeed)
+    }
+    
+    func updateTimer(x : Float) {
+        if timer != nil {
+            timer.invalidate()
+            timer = nil
+            timer = Timer.scheduledTimer(timeInterval: TimeInterval(x), target: self, selector: #selector(onTimerFires), userInfo: nil, repeats: true)
         }
     }
     // MARK: - Navigation
