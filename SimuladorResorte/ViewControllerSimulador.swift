@@ -50,7 +50,7 @@ class ViewControllerSimulador: UIViewController {
         shapeLayer.frame = CGRect(x: 48, y: 132, width: 150, height: 150)
         viewSimulation.layer.addSublayer(shapeLayer)
 
-        shapeLayer.strokeColor = UIColor.blue.cgColor
+        shapeLayer.strokeColor = UIColor.black.cgColor
         shapeLayer.fillColor = UIColor.white.cgColor
         shapeLayer.lineWidth = CGFloat(ancho)
         
