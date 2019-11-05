@@ -24,6 +24,7 @@ class ViewControllerValues: UIViewController {
     var mass : Int = 0
     var constantK : Int = 0
     var multiplier : Float = 0
+    var calculado : Float = 0.95
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,5 +115,6 @@ class ViewControllerValues: UIViewController {
         let viewSim = segue.destination as! ViewControllerSimulador
         viewSim.mass = mass
         viewSim.constantK = constantK
+        viewSim.shapeLayer.lineWidth = CGFloat(((Double(constantK)/32.0)*1.1) + 0.4)
     }
 }

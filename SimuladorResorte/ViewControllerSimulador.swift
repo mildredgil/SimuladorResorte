@@ -33,7 +33,7 @@ class ViewControllerSimulador: UIViewController {
     
     let shapeLayer = CAShapeLayer()
     var separado = CGFloat(0.02)
-    var ancho = 0.5
+    var ancho = 0.95
     
     override func viewDidLoad() {
         super.viewDidLoad()
