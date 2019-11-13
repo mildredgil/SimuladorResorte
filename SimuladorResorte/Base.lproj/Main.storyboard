@@ -94,6 +94,117 @@
             </objects>
             <point key="canvasLocation" x="-426.39999999999998" y="124.58770614692655"/>
         </scene>
+<<<<<<< Updated upstream
+=======
+        <!--View Controller Preguntas-->
+        <scene sceneID="RaI-ss-3xQ">
+            <objects>
+                <viewController id="chs-Mp-gh6" customClass="ViewControllerPreguntas" customModule="SimuladorResorte" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ipx-aD-JN8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xBF-lY-bbb">
+                                <rect key="frame" x="0.0" y="459" width="375" height="188"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4dI-Fc-Whw">
+                                        <rect key="frame" x="108" y="49" width="32" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="CHs-MH-c9Q"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="cambioTF:" destination="chs-Mp-gh6" eventType="editingChanged" id="adx-AM-k1Y"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ingrese un valor númerico." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOA-Oh-8pz">
+                                        <rect key="frame" x="127" y="20" width="200" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Optima-BoldItalic" family="Optima" pointSize="17"/>
+                                        <color key="textColor" red="0.97951596975326538" green="0.24536231160163879" blue="0.23829475045204163" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Respuesta:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7s8-dy-Ie9">
+                                        <rect key="frame" x="20" y="54" width="78" height="21"/>
+                                        <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.99223428964614868" green="0.81784331798553467" blue="0.74799847602844238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="4dI-Fc-Whw" secondAttribute="trailing" constant="20" id="46Y-wW-7QY"/>
+                                    <constraint firstItem="4dI-Fc-Whw" firstAttribute="leading" secondItem="7s8-dy-Ie9" secondAttribute="trailing" constant="10" id="Qz6-2h-Ns9"/>
+                                    <constraint firstAttribute="trailing" secondItem="4dI-Fc-Whw" secondAttribute="trailing" constant="20" id="dSM-z6-1Tq"/>
+                                    <constraint firstItem="7s8-dy-Ie9" firstAttribute="leading" secondItem="xBF-lY-bbb" secondAttribute="leading" constant="20" id="tuX-sA-Re9"/>
+                                    <constraint firstItem="4dI-Fc-Whw" firstAttribute="leading" secondItem="7s8-dy-Ie9" secondAttribute="trailing" constant="10" id="uMZ-a7-gdg"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¡Preguntas!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C2h-I1-PdI">
+                                <rect key="frame" x="0.0" y="60" width="375" height="57"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="57" id="glM-Qp-xoq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="48"/>
+                                <nil key="textColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contesta correctamente:" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JiN-Xp-CAi">
+                                <rect key="frame" x="36" y="149" width="251" height="28.5"/>
+                                <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="24"/>
+                                <nil key="textColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="noa-Iy-utj">
+                                <rect key="frame" x="36" y="225" width="314" height="238"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="238" id="MKO-T5-zSt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="24"/>
+                                <nil key="textColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AR7-Qv-K5O">
+                                <rect key="frame" x="20" y="583" width="335" height="34"/>
+                                <color key="backgroundColor" red="1" green="0.23221036789999999" blue="0.25827980039999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="AR7-Qv-K5O" secondAttribute="height" multiplier="335:34" id="BHM-kF-Ngo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="19"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Confirmar Respuesta">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnConfirmar:" destination="chs-Mp-gh6" eventType="touchUpInside" id="8bM-Cr-xQi"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="C2h-I1-PdI" firstAttribute="leading" secondItem="prV-1P-odm" secondAttribute="leading" id="DvW-5Y-oxU"/>
+                            <constraint firstItem="JiN-Xp-CAi" firstAttribute="top" secondItem="C2h-I1-PdI" secondAttribute="bottom" priority="999" constant="32" id="I9Q-dG-PKr"/>
+                            <constraint firstItem="JiN-Xp-CAi" firstAttribute="leading" secondItem="prV-1P-odm" secondAttribute="leading" constant="36" id="JEV-ps-yjA"/>
+                            <constraint firstItem="noa-Iy-utj" firstAttribute="top" secondItem="JiN-Xp-CAi" secondAttribute="bottom" constant="47.5" id="KRb-GA-xIL"/>
+                            <constraint firstItem="noa-Iy-utj" firstAttribute="leading" secondItem="prV-1P-odm" secondAttribute="leading" constant="36" id="Kdm-cv-Xxm"/>
+                            <constraint firstItem="prV-1P-odm" firstAttribute="trailing" secondItem="AR7-Qv-K5O" secondAttribute="trailing" constant="20" id="Mj6-pz-hoM"/>
+                            <constraint firstItem="prV-1P-odm" firstAttribute="bottom" secondItem="AR7-Qv-K5O" secondAttribute="bottom" constant="30" id="Pom-I8-jMD"/>
+                            <constraint firstItem="C2h-I1-PdI" firstAttribute="trailing" secondItem="prV-1P-odm" secondAttribute="trailing" id="hYM-OS-R83"/>
+                            <constraint firstItem="AR7-Qv-K5O" firstAttribute="leading" secondItem="prV-1P-odm" secondAttribute="leading" constant="20" id="kDy-GT-hcH"/>
+                            <constraint firstItem="C2h-I1-PdI" firstAttribute="top" secondItem="prV-1P-odm" secondAttribute="top" constant="60" id="qhB-uK-74C"/>
+                            <constraint firstItem="prV-1P-odm" firstAttribute="trailing" secondItem="noa-Iy-utj" secondAttribute="trailing" constant="25" id="tCl-ws-TjW"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="prV-1P-odm"/>
+                    </view>
+                    <connections>
+                        <outlet property="lbError" destination="qOA-Oh-8pz" id="gzP-KM-i3C"/>
+                        <outlet property="lbPregunta" destination="noa-Iy-utj" id="NGm-E6-UXs"/>
+                        <outlet property="tfRespuesta" destination="4dI-Fc-Whw" id="yq9-e9-ey7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="maX-KG-fl5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-426.39999999999998" y="871.21439280359823"/>
+        </scene>
+>>>>>>> Stashed changes
         <!--View Controller Simulador-->
         <scene sceneID="xfi-2Y-KMh">
             <objects>

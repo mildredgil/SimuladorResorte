@@ -47,6 +47,7 @@ class ViewControllerSimulador: UIViewController {
         let figura = dibujarResorte(graphWidth: separado,width: CGFloat(150))
         
         shapeLayer.path = figura.cgPath
+        //empieza resorte, cambiar x para cambiar posicion inicio
         shapeLayer.frame = CGRect(x: 48, y: 132, width: 150, height: 150)
         viewSimulation.layer.addSublayer(shapeLayer)
 
@@ -58,21 +59,7 @@ class ViewControllerSimulador: UIViewController {
         xi = Float(imgMass.frame.size.width)
     }
     
-    func moverResorte() {
-//        let figura = dibujarResorte(graphWidth: 0.03)
-//        shapeLayer.path = figura.cgPath
-        while(true){
-            if separado == 0.02 {
-                separado = 0.03
-            } else if separado == 0.03 {
-                separado = 0.04
-            } else {
-                separado = 0.02
-            }
-            let figura = dibujarResorte(graphWidth: separado,width: CGFloat(150))
-            shapeLayer.path = figura.cgPath
-        }
-    }
+
     
     func dibujarResorte(graphWidth : CGFloat,width : CGFloat) -> UIBezierPath{
         let height = CGFloat(150.0)
@@ -175,21 +162,15 @@ class ViewControllerSimulador: UIViewController {
         elapsedTime += timeSpeed / timeRatio
         let posActual = getPosActual(xi: xi, k: Float(constantK), m: Float(mass)/1000, o: o, t: elapsedTime)
         let movement = Float(startingXCoord) + posActual
-//        let newRect = CGRect(origin: CGPoint(x: CGFloat(movement+200), y: CGFloat(imgMass.frame.origin.y)), size: imgMass.frame.size)
-        //moverResorte()
         let newRect = CGRect(origin: CGPoint(x: CGFloat(movement), y: CGFloat(imgMass.frame.origin.y)), size: imgMass.frame.size)
-        if separado == 0.02 {
-            separado = 0.03
-        } else if separado == 0.03 {
-            separado = 0.04
-        } else {
-            separado = 0.02
-        }
+        
+        
+
         let figura = dibujarResorte(graphWidth: 0.02,width: CGFloat(movement-38))
         shapeLayer.path = figura.cgPath
+        //mover posicion resorte
+        //shapeLayer.frame = CGRect(x: 48, y: 132, width: 150, height: 150)
         
-//        shapeLayer.frame = CGRect(x: 48, y: 28, width: Int(150-movement), height: 150)
-        //shapeLayer.frame = CGRect(origin: CGPoint(x: CGFloat(movement), y: CGFloat(imgMass.frame.origin.y - 300)), size: CGSize(width: 150, height: 300))
         
         imgMass.frame = newRect
         
