@@ -41,7 +41,7 @@ class ViewControllerSimulador: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        UIPanGestureRecognizer(target: imgMass, action: #selector(onDragMass(_:)))
         //btn styles
         btnSelected = btnPause
         btnValues.layer.cornerRadius = 4
@@ -82,7 +82,7 @@ class ViewControllerSimulador: UIViewController {
     }
     
     func dibujarResorte(graphWidth : CGFloat,width : CGFloat) -> UIBezierPath{
-        let height = CGFloat(50.0)
+        let height = CGFloat(70.0)
         let amplitude: CGFloat = 0.2   // Amplitude of sine wave is 30% of view height
         let origin = CGPoint(x: 0, y: height * 0.50)
 
@@ -297,5 +297,11 @@ class ViewControllerSimulador: UIViewController {
         
         viewRule.addSubview(lbl)
         lbNumbers.append(lbl)
+    }
+    @IBAction func onDragMass(_ sender: UIPanGestureRecognizer) {
+        let translate : CGPoint = sender.translation(in: self.view)
+        imgMass.center.x += translate.x
+         
+        sender.setTranslation(CGPoint.zero, in: self.view)
     }
 }
