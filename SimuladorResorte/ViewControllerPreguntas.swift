@@ -93,6 +93,9 @@ class ViewControllerPreguntas: UIViewController {
         }
     }
     
+    @IBAction func goHome(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 

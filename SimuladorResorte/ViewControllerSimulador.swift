@@ -294,10 +294,19 @@ class ViewControllerSimulador: UIViewController {
         
         viewRule.addSubview(lbl)
     }
+    
+    @IBAction func onDragRules(_ sender: UIPanGestureRecognizer) {
+        
+    }
+    
     @IBAction func onDragMass(_ sender: UIPanGestureRecognizer) {
         let translate : CGPoint = sender.translation(in: self.view)
         imgMass.center.x += translate.x
         
         sender.setTranslation(CGPoint.zero, in: self.view)
+    }
+    
+    @IBAction func goHome(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
 }

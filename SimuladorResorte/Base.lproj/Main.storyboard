@@ -53,7 +53,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="bua-Oc-3q6" kind="presentation" id="z4l-ig-9Km"/>
+                                    <segue destination="bua-Oc-3q6" kind="presentation" identifier="simulador" id="z4l-ig-9Km"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NVM-ef-qld">
@@ -168,6 +168,21 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RlE-6t-YJx">
+                                <rect key="frame" x="325" y="15" width="35" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Xmj-o1-WUm"/>
+                                    <constraint firstAttribute="width" constant="35" id="xs5-mB-T2d"/>
+                                </constraints>
+                                <color key="tintColor" red="1" green="0.23221036789999999" blue="0.25827980039999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="house.fill" catalog="system">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="goHome:" destination="chs-Mp-gh6" eventType="touchUpInside" id="7WN-pN-a37"/>
+                                    <action selector="goHome:" destination="bua-Oc-3q6" eventType="touchUpInside" id="bcb-4c-c3v"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -180,6 +195,8 @@
                             <constraint firstItem="4dI-Fc-Whw" firstAttribute="leading" secondItem="prV-1P-odm" secondAttribute="leading" constant="100" id="P4M-PX-n2S"/>
                             <constraint firstItem="prV-1P-odm" firstAttribute="bottom" secondItem="AR7-Qv-K5O" secondAttribute="bottom" constant="30" id="Pom-I8-jMD"/>
                             <constraint firstItem="prV-1P-odm" firstAttribute="trailing" secondItem="4dI-Fc-Whw" secondAttribute="trailing" constant="100" id="Srm-u4-smv"/>
+                            <constraint firstItem="prV-1P-odm" firstAttribute="trailing" secondItem="RlE-6t-YJx" secondAttribute="trailing" constant="15" id="WyW-fO-bOW"/>
+                            <constraint firstItem="RlE-6t-YJx" firstAttribute="top" secondItem="prV-1P-odm" secondAttribute="top" constant="15" id="X8S-nd-8Ar"/>
                             <constraint firstItem="AR7-Qv-K5O" firstAttribute="top" secondItem="4dI-Fc-Whw" secondAttribute="bottom" constant="40" id="YKs-No-BJs"/>
                             <constraint firstItem="C2h-I1-PdI" firstAttribute="trailing" secondItem="prV-1P-odm" secondAttribute="trailing" id="hYM-OS-R83"/>
                             <constraint firstItem="AR7-Qv-K5O" firstAttribute="leading" secondItem="prV-1P-odm" secondAttribute="leading" constant="20" id="kDy-GT-hcH"/>
@@ -371,12 +388,28 @@
                                     </switch>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lIK-UN-BII">
+                                <rect key="frame" x="325" y="15" width="35" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="35" id="fwv-8B-qGp"/>
+                                    <constraint firstAttribute="height" constant="30" id="jF5-6h-44S"/>
+                                </constraints>
+                                <color key="tintColor" red="1" green="0.23221036789999999" blue="0.25827980039999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="house.fill" catalog="system">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="goHome:" destination="bua-Oc-3q6" eventType="touchUpInside" id="iAi-x3-tA6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.81420252634126189" blue="0.75746437496366703" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="ts2-J4-Mnb" firstAttribute="leading" secondItem="6Q2-ng-PPy" secondAttribute="leading" id="4Jr-O4-kh1"/>
                             <constraint firstItem="EWX-28-8Le" firstAttribute="centerX" secondItem="6Q2-ng-PPy" secondAttribute="centerX" id="5zl-nr-6GC"/>
+                            <constraint firstItem="lIK-UN-BII" firstAttribute="top" secondItem="LvS-sz-dGT" secondAttribute="top" constant="15" id="7LD-Qw-oMg"/>
                             <constraint firstItem="H8c-eo-96l" firstAttribute="top" secondItem="o3v-op-HOF" secondAttribute="bottom" constant="22" id="A0e-Bt-U08"/>
+                            <constraint firstItem="LvS-sz-dGT" firstAttribute="trailing" secondItem="lIK-UN-BII" secondAttribute="trailing" constant="15" id="ASR-iG-SMc"/>
                             <constraint firstItem="FJw-28-lpq" firstAttribute="centerX" secondItem="6Q2-ng-PPy" secondAttribute="centerX" id="Bk8-gy-3Tk"/>
                             <constraint firstAttribute="trailing" secondItem="ts2-J4-Mnb" secondAttribute="trailing" id="D8S-VM-wqj"/>
                             <constraint firstItem="LvS-sz-dGT" firstAttribute="bottom" secondItem="EWX-28-8Le" secondAttribute="bottom" constant="30" id="ETr-LS-OwZ"/>
@@ -410,7 +443,11 @@
                         <action selector="onDragMass:" destination="bua-Oc-3q6" id="eTl-qM-aVL"/>
                     </connections>
                 </panGestureRecognizer>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="Qv5-5R-SbJ"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="Qv5-5R-SbJ">
+                    <connections>
+                        <action selector="onDragRules:" destination="bua-Oc-3q6" id="xCS-B3-Xm6"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="796" y="124.58770614692655"/>
         </scene>
@@ -556,6 +593,7 @@
     </scenes>
     <resources>
         <image name="arrow.clockwise" catalog="system" width="56" height="64"/>
+        <image name="house.fill" catalog="system" width="64" height="52"/>
         <image name="k.square.fill" catalog="system" width="64" height="56"/>
         <image name="pause.fill" catalog="system" width="58" height="64"/>
         <image name="play.fill" catalog="system" width="58" height="64"/>

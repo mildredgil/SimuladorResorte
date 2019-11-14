@@ -41,6 +41,15 @@ class ViewController: UIViewController {
         return .portrait
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "simulador" {
+            let viewS = segue.destination as! ViewControllerSimulador
+            viewS.modalPresentationStyle = .fullScreen
+        } else {
+            let viewQuest = segue.destination as! ViewControllerPreguntas
+            viewQuest.modalPresentationStyle = .fullScreen
+        }
+    }
 
 }
 
