@@ -115,6 +115,6 @@ class ViewControllerValues: UIViewController {
         let viewSim = segue.destination as! ViewControllerSimulador
         viewSim.mass = mass
         viewSim.constantK = constantK
-        viewSim.shapeLayer.lineWidth = CGFloat(((Double(constantK)/32.0)*1.1) + 0.4)
+        viewSim.ancho = CGFloat(((Double(constantK)/32.0)*1.1) + 0.4)
     }
 }
