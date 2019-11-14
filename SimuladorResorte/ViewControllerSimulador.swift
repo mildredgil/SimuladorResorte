@@ -18,7 +18,6 @@ class ViewControllerSimulador: UIViewController {
     @IBOutlet weak var imgMass: UIImageView!
     @IBOutlet weak var viewSimulation: UIView!
     @IBOutlet weak var viewRule: UIView!
-    @IBOutlet var aView: UIView!
     @IBOutlet weak var viewSpring: UIView!
     
     var btnSelected : UIButton!
@@ -37,6 +36,8 @@ class ViewControllerSimulador: UIViewController {
     let shapeLayer = CAShapeLayer()
     var separado = CGFloat(0.02)
     var ancho : CGFloat = 0.95
+    
+    var lbNumbers : [UILabel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,9 +63,13 @@ class ViewControllerSimulador: UIViewController {
         viewSpring.layer.addSublayer(shapeLayer)
         
         //set mass position
-        startingXCoord = imgMass.frame.origin.x
+        let whiteSpaceMass = Float(5.0)
         xi = Float(imgMass.frame.size.width)
+        
+        startingXCoord = imgMass.frame.origin.x - CGFloat(xi + whiteSpaceMass)
         updatePosicion()
+        setRuleLines()
+        print(xi)
     }
     
     func moverResorte(width : CGFloat) {
@@ -176,7 +181,7 @@ class ViewControllerSimulador: UIViewController {
         let posActual = getPosActual(xi: xi, k: Float(constantK), m: Float(mass)/1000, o: o, t: elapsedTime)
         let movement = Float(startingXCoord) + posActual
 
-        moverResorte(width: CGFloat(movement-38))
+        moverResorte(width: CGFloat(movement))
         
         let newRect = CGRect(origin: CGPoint(x: CGFloat(movement), y: CGFloat(imgMass.frame.origin.y)), size: imgMass.frame.size)
         imgMass.frame = newRect
@@ -185,8 +190,7 @@ class ViewControllerSimulador: UIViewController {
     func resetPos() {
         elapsedTime = 0.0
         
-        let movement = Float(startingXCoord)
-        let newRect = CGRect(origin: CGPoint(x: CGFloat(movement), y: CGFloat(imgMass.frame.origin.y)), size: imgMass.frame.size)
+        let newRect = CGRect(origin: CGPoint(x: CGFloat(startingXCoord), y: CGFloat(imgMass.frame.origin.y)), size: imgMass.frame.size)
         
         let figura = dibujarResorte(graphWidth: 0.02,width: CGFloat(150))
         
@@ -234,5 +238,64 @@ class ViewControllerSimulador: UIViewController {
         //change spring
         shapeLayer.lineWidth = CGFloat(ancho)
     }
-
+    
+    func setRuleLines() {
+        let ruleWidth = UIScreen.main.bounds.width
+        let lineHeight = CGFloat(20.0)
+        let center = Int(ruleWidth / 2)
+        let path = UIBezierPath()
+        let y = CGFloat(0.0)
+        
+        //start drawing in the center to the right and left
+        for pos in stride(from: 0, to: center, by: 5) {
+            var lineH = lineHeight
+            let xRight = CGFloat(center + pos)
+            let xLeft = CGFloat(center - pos)
+            
+            if Int(pos) % 50 == 0 {
+                lineH = 1.8 * lineHeight
+                
+                addRuleNumber(num : "\(pos / 10)", x : xRight, y : y + lineH)
+                if(pos != 0) {
+                    addRuleNumber(num : "-\(pos / 10)", x : xLeft, y : y + lineH)
+                }
+                
+            } else if Int(pos) % 25 == 0 {
+                lineH = 1.5 * lineHeight
+            }
+            
+            path.move(to: CGPoint(x: xRight, y: y))
+            path.addLine(to: CGPoint(x: xRight, y: y + lineH))
+            
+            path.move(to: CGPoint(x: xLeft, y: y))
+            path.addLine(to: CGPoint(x: xLeft, y: y + lineH))
+        }
+        
+        //draw layer
+        let shapeLayer2 = CAShapeLayer()
+        shapeLayer2.path = path.cgPath
+        shapeLayer2.frame = CGRect(x: 1, y: 0, width: ruleWidth
+            , height: 20)
+        shapeLayer2.strokeColor = UIColor.black.cgColor
+        shapeLayer2.fillColor = UIColor.white.cgColor
+        shapeLayer2.lineWidth = CGFloat(ancho)
+        viewRule.layer.addSublayer(shapeLayer2)
+    }
+    
+    func addRuleNumber(num : String, x : CGFloat, y : CGFloat) {
+        let lbl = UILabel(frame: CGRect(x: x, y: y, width: 23, height: 20))
+        lbl.textAlignment = .center //For center alignment
+        lbl.text = num
+        lbl.textColor = .black
+        lbl.font = UIFont.systemFont(ofSize: 15)
+        lbl.numberOfLines = 1
+        
+        lbl.sizeToFit()//If required
+        
+        //adjust position
+        lbl.frame.origin.x = lbl.frame.origin.x - lbl.frame.size.width / 2
+        
+        viewRule.addSubview(lbl)
+        lbNumbers.append(lbl)
+    }
 }
