@@ -222,11 +222,15 @@
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="0.87002782059700845" blue="0.0048217326776902603" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="85" id="1go-b9-08y"/>
                                             <constraint firstAttribute="bottom" secondItem="Nnd-k1-ZaS" secondAttribute="bottom" constant="4" id="AVX-aY-rut"/>
                                             <constraint firstAttribute="trailing" secondItem="Nnd-k1-ZaS" secondAttribute="trailing" constant="8" id="jok-JW-HaA"/>
                                         </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="Qv5-5R-SbJ" appends="YES" id="CsJ-Up-SAC"/>
+                                        </connections>
                                     </view>
                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wooden-box" translatesAutoresizingMaskIntoConstraints="NO" id="Oyc-OU-A2f">
                                         <rect key="frame" x="222" y="171" width="80" height="80"/>
@@ -406,6 +410,7 @@
                         <action selector="onDragMass:" destination="bua-Oc-3q6" id="eTl-qM-aVL"/>
                     </connections>
                 </panGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="Qv5-5R-SbJ"/>
             </objects>
             <point key="canvasLocation" x="796" y="124.58770614692655"/>
         </scene>

@@ -37,11 +37,8 @@ class ViewControllerSimulador: UIViewController {
     var separado = CGFloat(0.02)
     var ancho : CGFloat = 0.95
     
-    var lbNumbers : [UILabel] = []
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIPanGestureRecognizer(target: imgMass, action: #selector(onDragMass(_:)))
         //btn styles
         btnSelected = btnPause
         btnValues.layer.cornerRadius = 4
@@ -63,7 +60,7 @@ class ViewControllerSimulador: UIViewController {
         viewSpring.layer.addSublayer(shapeLayer)
         
         //set mass position
-        let whiteSpaceMass = Float(5.0)
+        let whiteSpaceMass = Float(-8.0)
         xi = Float(imgMass.frame.size.width)
         
         startingXCoord = imgMass.frame.origin.x - CGFloat(xi + whiteSpaceMass)
@@ -296,12 +293,11 @@ class ViewControllerSimulador: UIViewController {
         lbl.frame.origin.x = lbl.frame.origin.x - lbl.frame.size.width / 2
         
         viewRule.addSubview(lbl)
-        lbNumbers.append(lbl)
     }
     @IBAction func onDragMass(_ sender: UIPanGestureRecognizer) {
         let translate : CGPoint = sender.translation(in: self.view)
         imgMass.center.x += translate.x
-         
+        
         sender.setTranslation(CGPoint.zero, in: self.view)
     }
 }
