@@ -45,10 +45,10 @@ class ViewController: UIViewController {
         if segue.identifier == "simulador" {
             let viewS = segue.destination as! ViewControllerSimulador
             viewS.modalPresentationStyle = .fullScreen
-        } else {
+        } else if segue.identifier == "preguntas" {
             let viewQuest = segue.destination as! ViewControllerPreguntas
             viewQuest.modalPresentationStyle = .fullScreen
-        }
+        } 
     }
 
 }
