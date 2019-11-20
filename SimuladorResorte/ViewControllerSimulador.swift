@@ -34,8 +34,11 @@ class ViewControllerSimulador: UIViewController {
     var startingXCoord : CGFloat!
     
     let shapeLayer = CAShapeLayer()
+    let shapeLayerRule = CAShapeLayer()
     var separado = CGFloat(0.02)
     var ancho : CGFloat = 0.95
+    var zeroPosition = Float((UIScreen.main.bounds.width) / 2.0)
+    var lbNumbersArr = [UILabel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -252,9 +255,11 @@ class ViewControllerSimulador: UIViewController {
             if Int(pos) % 50 == 0 {
                 lineH = 1.8 * lineHeight
                 
-                addRuleNumber(num : "\(pos / 10)", x : xRight, y : y + lineH)
+                let lbNumberR = addRuleNumber(num : "\(pos / 10)", x : xRight, y : y + lineH)
+                lbNumbersArr.append(lbNumberR)
                 if(pos != 0) {
-                    addRuleNumber(num : "-\(pos / 10)", x : xLeft, y : y + lineH)
+                    let lbNumberL = addRuleNumber(num : "-\(pos / 10)", x : xLeft, y : y + lineH)
+                    lbNumbersArr.append(lbNumberL)
                 }
                 
             } else if Int(pos) % 25 == 0 {
@@ -269,17 +274,17 @@ class ViewControllerSimulador: UIViewController {
         }
         
         //draw layer
-        let shapeLayer2 = CAShapeLayer()
-        shapeLayer2.path = path.cgPath
-        shapeLayer2.frame = CGRect(x: 1, y: 0, width: ruleWidth
+        //let shapeLayer2 = CAShapeLayer()
+        shapeLayerRule.path = path.cgPath
+        shapeLayerRule.frame = CGRect(x: 1, y: 0, width: ruleWidth
             , height: 20)
-        shapeLayer2.strokeColor = UIColor.black.cgColor
-        shapeLayer2.fillColor = UIColor.white.cgColor
-        shapeLayer2.lineWidth = CGFloat(ancho)
-        viewRule.layer.addSublayer(shapeLayer2)
+        shapeLayerRule.strokeColor = UIColor.black.cgColor
+        shapeLayerRule.fillColor = UIColor.white.cgColor
+        shapeLayerRule.lineWidth = CGFloat(ancho)
+        viewRule.layer.addSublayer(shapeLayerRule)
     }
     
-    func addRuleNumber(num : String, x : CGFloat, y : CGFloat) {
+    func addRuleNumber(num : String, x : CGFloat, y : CGFloat) -> UILabel {
         let lbl = UILabel(frame: CGRect(x: x, y: y, width: 23, height: 20))
         lbl.textAlignment = .center //For center alignment
         lbl.text = num
@@ -293,10 +298,76 @@ class ViewControllerSimulador: UIViewController {
         lbl.frame.origin.x = lbl.frame.origin.x - lbl.frame.size.width / 2
         
         viewRule.addSubview(lbl)
+        return lbl
+    }
+    
+    func moveRuleNumber(num : String, x : CGFloat, y : CGFloat, pos : Int) {
+        if lbNumbersArr.count <= pos {
+            print(pos, lbNumbersArr.count)
+            lbNumbersArr.append(addRuleNumber(num: num, x: x, y: y))
+        } else {
+            let lbNumber = lbNumbersArr[pos]
+            lbNumber.frame.origin = CGPoint(x : x, y : y)
+            lbNumber.text = num
+            lbNumber.textAlignment = .center //For center alignment
+            lbNumber.sizeToFit()//If required
+            lbNumber.frame.origin.x = lbNumber.frame.origin.x - lbNumber.frame.size.width / 2
+            
+            //lbNumbersArr.remove(at: pos)
+        }
+    }
+    
+    func onChangeRuleLines() {
+        let center = zeroPosition
+        let lineHeight = CGFloat(20.0)
+        let path = UIBezierPath()
+        let y = CGFloat(0.0)
+        var cont = 0
+        
+        //start drawing in the center to the right and left
+        for pos in stride(from: 0, to: center, by: 5) {
+            var lineH = lineHeight
+            let xRight = CGFloat(center + pos)
+            let xLeft = CGFloat(center - pos)
+            
+            if Int(pos) % 50 == 0 {
+                lineH = 1.8 * lineHeight
+                
+                moveRuleNumber(num : "\(Int(pos / 10))", x : xRight, y : y + lineH, pos : cont)
+                cont += 1
+                
+                if(pos != 0) {
+                    moveRuleNumber(num : "-\(Int(pos / 10))", x : xLeft, y : y + lineH, pos : cont)
+                    cont += 1
+                }
+                
+            } else if Int(pos) % 25 == 0 {
+                lineH = 1.5 * lineHeight
+            }
+            
+            path.move(to: CGPoint(x: xRight, y: y))
+            path.addLine(to: CGPoint(x: xRight, y: y + lineH))
+            
+            path.move(to: CGPoint(x: xLeft, y: y))
+            path.addLine(to: CGPoint(x: xLeft, y: y + lineH))
+        }
+        
+        //redraw layer
+        shapeLayerRule.path = path.cgPath
+        shapeLayerRule.strokeColor = UIColor.black.cgColor
+        shapeLayerRule.setNeedsDisplay()
     }
     
     @IBAction func onDragRules(_ sender: UIPanGestureRecognizer) {
+        let translate : CGPoint = sender.translation(in: self.view)
+        if zeroPosition < 400 {
+            zeroPosition += Float(translate.x)
+            onChangeRuleLines()
+        } else {
+            zeroPosition -= 1
+        }
         
+        sender.setTranslation(CGPoint.zero, in: self.view)
     }
     
     @IBAction func onDragMass(_ sender: UIPanGestureRecognizer) {
