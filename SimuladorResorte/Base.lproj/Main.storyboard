@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -239,14 +239,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="En6-Q6-cnc">
-                                <rect key="frame" x="20" y="123.5" width="335" height="77.5"/>
+                                <rect key="frame" x="20" y="118.5" width="335" height="77.5"/>
                                 <string key="text">Simulador Resorte ha sido desarrollado por estudiantes del Tecnológico de Monterrey durante el semestre Agosto Diciembre de 2019, como parte del curso Desarrollo de Aplicaciones para Dispositivos Móviles y asesorados por la maestra Yolanda Martínez Treviño.  </string>
                                 <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CRÉDITOS" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uDE-fe-3mg">
-                                <rect key="frame" x="74.5" y="60" width="226" height="59"/>
+                                <rect key="frame" x="74.5" y="55" width="226" height="59"/>
                                 <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="48"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -325,6 +325,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Iconos realizados por Freepik de www.flaticon.com" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qWS-JP-7fR">
+                                <rect key="frame" x="20" y="556.5" width="335" height="15.5"/>
+                                <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="13"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.81592631340026855" blue="0.75143986940383911" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -332,10 +338,13 @@
                             <constraint firstItem="BQw-p1-5Qc" firstAttribute="trailing" secondItem="BvV-Dm-Dd8" secondAttribute="trailing" constant="20" id="4J8-Ty-PTt"/>
                             <constraint firstItem="BQw-p1-5Qc" firstAttribute="trailing" secondItem="En6-Q6-cnc" secondAttribute="trailing" constant="20" id="60I-If-Sdt"/>
                             <constraint firstItem="BQw-p1-5Qc" firstAttribute="bottom" secondItem="BvV-Dm-Dd8" secondAttribute="bottom" constant="20" id="L10-2g-hnH"/>
-                            <constraint firstItem="g9E-ac-9AK" firstAttribute="top" secondItem="En6-Q6-cnc" secondAttribute="bottom" constant="5" id="NV2-8q-Vm8"/>
+                            <constraint firstItem="g9E-ac-9AK" firstAttribute="top" secondItem="En6-Q6-cnc" secondAttribute="bottom" constant="10" id="NV2-8q-Vm8"/>
                             <constraint firstItem="uDE-fe-3mg" firstAttribute="centerX" secondItem="BQw-p1-5Qc" secondAttribute="centerX" id="QFX-nL-mS9"/>
                             <constraint firstItem="g9E-ac-9AK" firstAttribute="centerY" secondItem="BQw-p1-5Qc" secondAttribute="centerY" id="R2l-AM-Upa"/>
+                            <constraint firstItem="BQw-p1-5Qc" firstAttribute="trailing" secondItem="qWS-JP-7fR" secondAttribute="trailing" constant="20" id="RTk-Aw-VL4"/>
+                            <constraint firstItem="BvV-Dm-Dd8" firstAttribute="top" secondItem="qWS-JP-7fR" secondAttribute="bottom" constant="8.5" id="TY5-is-Ukz"/>
                             <constraint firstItem="g9E-ac-9AK" firstAttribute="leading" secondItem="BQw-p1-5Qc" secondAttribute="leading" id="lmD-Is-sMa"/>
+                            <constraint firstItem="qWS-JP-7fR" firstAttribute="leading" secondItem="BQw-p1-5Qc" secondAttribute="leading" constant="20" id="qTo-e7-rKg"/>
                             <constraint firstItem="En6-Q6-cnc" firstAttribute="top" secondItem="uDE-fe-3mg" secondAttribute="bottom" constant="4.5" id="uRn-AJ-mbw"/>
                             <constraint firstItem="En6-Q6-cnc" firstAttribute="leading" secondItem="BQw-p1-5Qc" secondAttribute="leading" constant="20" id="uuG-0s-fFQ"/>
                             <constraint firstItem="g9E-ac-9AK" firstAttribute="trailing" secondItem="BQw-p1-5Qc" secondAttribute="trailing" id="veg-Kn-Dzh"/>
@@ -613,7 +622,7 @@
                                 <rect key="frame" x="20" y="100" width="335" height="150"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fbi-fn-uGt">
-                                        <rect key="frame" x="0.0" y="1" width="162.5" height="148"/>
+                                        <rect key="frame" x="0.0" y="1" width="162.5" height="147.5"/>
                                         <color key="backgroundColor" red="0.83897227050000001" green="0.67858296630000003" blue="0.62690311669999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" backgroundImage="k.square.fill" catalog="system"/>
