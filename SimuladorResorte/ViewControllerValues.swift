@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewControllerValues: UIViewController {
+class ViewControllerValues: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var btnMass: UIButton!
     @IBOutlet weak var btnConstantK: UIButton!
     @IBOutlet weak var tfValue: UITextField!
@@ -28,6 +28,8 @@ class ViewControllerValues: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tfValue.returnKeyType = .done
+        self.tfValue.delegate = self
         tfValue.text = "\(mass)"
         multiplier = 1000.0
         sliderVal.setValue(Float(mass) /  multiplier, animated: true)
@@ -36,6 +38,10 @@ class ViewControllerValues: UIViewController {
         btnMass.layer.cornerRadius = 5
         btnSimular.layer.cornerRadius = 5
         
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
+        textField.resignFirstResponder()
+        return true
     }
     
     @IBAction func slider(_ sender: UISlider) {
