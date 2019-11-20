@@ -31,11 +31,15 @@ class ViewControllerSimulador: UIViewController {
     
     var xi : Float = 80.0 // Punto inicial
     var o : Float = 0.0 // Pi si esta compactado, 0 si esta estirado
-    var startingXCoord : CGFloat!
-    
+    var startingXCoord : CGFloat! // The coordinate where the mass started moving
+    var equilibriumPoint : CGFloat! // The equilibrium point of the spring
     let shapeLayer = CAShapeLayer()
     var separado = CGFloat(0.02)
     var ancho : CGFloat = 0.95
+    
+    //Debugging vars
+    var maxMovement : Float = 0.0
+    var minMovement : Float = 1000000.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,14 +63,19 @@ class ViewControllerSimulador: UIViewController {
         
         viewSpring.layer.addSublayer(shapeLayer)
         
+        let screenWidth  = UIScreen.main.fixedCoordinateSpace.bounds.width
+        
         //set mass position
         let whiteSpaceMass = Float(-8.0)
         xi = Float(imgMass.frame.size.width)
-        
         startingXCoord = imgMass.frame.origin.x - CGFloat(xi + whiteSpaceMass)
+        equilibriumPoint = CGFloat(screenWidth/2.0 - CGFloat(11));
+        print("Equilibrium pos is at: ", equilibriumPoint!)
         updatePosicion()
         setRuleLines()
         print(xi)
+        
+        resetPos()
     }
     
     func moverResorte(width : CGFloat) {
@@ -160,6 +169,22 @@ class ViewControllerSimulador: UIViewController {
         print(constantK)
     }
     
+    func resetPos() {
+        elapsedTime = 0.0
+        o = 0.0
+        xi = 80.0
+        
+        let newRect = CGRect(origin: CGPoint(x: CGFloat(Float(equilibriumPoint!) + xi), y: CGFloat(imgMass.frame.origin.y)), size: imgMass.frame.size)
+        
+        let figura = dibujarResorte(graphWidth: 0.02,width: CGFloat(150))
+        
+        imgMass.frame = newRect
+        shapeLayer.path = figura.cgPath
+        shapeLayer.lineWidth = CGFloat(0.95)
+        
+        updatePosicion()
+    }
+    
     func onBtnTap(_ sender: UIButton) {
         resetBtn(btnSelected)
         
@@ -176,26 +201,23 @@ class ViewControllerSimulador: UIViewController {
     func updatePosicion() {
         elapsedTime += timeSpeed / timeRatio
         let posActual = getPosActual(xi: xi, k: Float(constantK), m: Float(mass)/1000, o: o, t: elapsedTime)
-        let movement = Float(startingXCoord) + posActual
+        let movement = Float(equilibriumPoint) + posActual
+        
+        print("equilibrium point: ", equilibriumPoint!)
+        if(movement > maxMovement) {
+            maxMovement = movement
+        }
+        
+        if(movement < minMovement) {
+            minMovement = movement
+        }
+        print("Max movement: ", maxMovement)
+        print("Min movement: ", minMovement)
 
         moverResorte(width: CGFloat(movement))
         
         let newRect = CGRect(origin: CGPoint(x: CGFloat(movement), y: CGFloat(imgMass.frame.origin.y)), size: imgMass.frame.size)
         imgMass.frame = newRect
-    }
-    
-    func resetPos() {
-        elapsedTime = 0.0
-        
-        let newRect = CGRect(origin: CGPoint(x: CGFloat(startingXCoord), y: CGFloat(imgMass.frame.origin.y)), size: imgMass.frame.size)
-        
-        let figura = dibujarResorte(graphWidth: 0.02,width: CGFloat(150))
-        
-        imgMass.frame = newRect
-        shapeLayer.path = figura.cgPath
-        shapeLayer.lineWidth = CGFloat(0.95)
-        
-        updatePosicion()
     }
     
     func getPosActual( xi: Float, k: Float, m: Float, o: Float, t: Float) -> Float{
@@ -302,6 +324,19 @@ class ViewControllerSimulador: UIViewController {
     @IBAction func onDragMass(_ sender: UIPanGestureRecognizer) {
         let translate : CGPoint = sender.translation(in: self.view)
         imgMass.center.x += translate.x
+        
+        //set new mass position
+        let whiteSpaceMass = Float(-8.0)
+        xi = Float(imgMass.frame.origin.x) - Float(equilibriumPoint)
+        startingXCoord = imgMass.frame.origin.x - CGFloat(xi + whiteSpaceMass)
+        if (xi < 0) {
+            o = Float.pi
+        } else {
+            o = 0.0
+        }
+        print(xi)
+        
+        moverResorte(width: imgMass.frame.origin.x)
         
         sender.setTranslation(CGPoint.zero, in: self.view)
     }
