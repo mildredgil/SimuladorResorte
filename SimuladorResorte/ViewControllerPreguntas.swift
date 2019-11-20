@@ -8,11 +8,11 @@
 
 import UIKit
 
-class ViewControllerPreguntas: UIViewController {
+class ViewControllerPreguntas: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var lbPregunta: UILabel!
     @IBOutlet weak var tfRespuesta: UITextField!
     
-    var tipoPreguntas : [String] = ["Periodo", "Posicion"]
+    var tipoPreguntas : [String] = ["Periodo", "Posicion", "Frecuencia"]
     var respuestaCorrecta : Float!
     var isAnswCorrect : Bool!
     /*
@@ -27,7 +27,31 @@ class ViewControllerPreguntas: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tfRespuesta.returnKeyType = .send
+        self.tfRespuesta.delegate = self
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         generePregunta()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
+        textField.resignFirstResponder()
+        btnConfirmar(true)
+        return true
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
     }
     
     func generePregunta () -> Void {
@@ -55,16 +79,22 @@ class ViewControllerPreguntas: UIViewController {
             let k = Int.random(in: 1..<33)
             let tiempo = Int.random(in: 1..<21)
             
-            text = "Dada una masa de \(masa) gramos y una constante k de \(k) durante un tiempo de \(tiempo) segundos, calcula el periodo de un sistema armonico simple."
-            respuestaCorrecta = calculaPeriodo(m: Float(masa),k: Float(k))
+            text = "Dada una masa de \(masa) gramos y una constante k de \(k) durante un tiempo de \(tiempo) segundos, ¿Cuántos periodos habrán pasado después de ese tiempo?"
+            respuestaCorrecta = Float(tiempo) / calculaPeriodo(m: Float(masa),k: Float(k))
             
+        } else if(tipo == "Frecuencia") {
+            let masa = Int.random(in: 1..<1001)
+            let k = Int.random(in: 1..<33)
+            
+            text = "Dada una masa de \(masa) gramos y una constante k de \(k), calcula la frecuencia de un sistema armonico simple."
+            respuestaCorrecta = 1.0 / calculaPeriodo(m: Float(masa),k: Float(k))
         }
         
         return text
     }
     
     func calculaPeriodo(m : Float, k: Float) -> Float {
-        return 2 * Float.pi * sqrt(m/k)
+        return 2 * Float.pi * sqrt((m/1000)/k)
     }
     
     @IBAction func btnConfirmar(_ sender: Any) {
