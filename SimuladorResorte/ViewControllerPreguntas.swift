@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewControllerPreguntas: UIViewController {
+class ViewControllerPreguntas: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var lbPregunta: UILabel!
     @IBOutlet weak var tfRespuesta: UITextField!
     
@@ -27,7 +27,31 @@ class ViewControllerPreguntas: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tfRespuesta.returnKeyType = .send
+        self.tfRespuesta.delegate = self
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         generePregunta()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
+        textField.resignFirstResponder()
+        btnConfirmar(true)
+        return true
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
     }
     
     func generePregunta () -> Void {

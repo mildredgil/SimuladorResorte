@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -149,8 +149,8 @@
                                 <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="48"/>
                                 <nil key="textColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="contesta correctamente:" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JiN-Xp-CAi">
-                                <rect key="frame" x="20" y="149" width="247" height="28.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contesta correctamente:" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JiN-Xp-CAi">
+                                <rect key="frame" x="36" y="149" width="251" height="28.5"/>
                                 <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="24"/>
                                 <nil key="textColor"/>
                             </label>
@@ -204,7 +204,6 @@
                         <constraints>
                             <constraint firstItem="C2h-I1-PdI" firstAttribute="leading" secondItem="prV-1P-odm" secondAttribute="leading" id="DvW-5Y-oxU"/>
                             <constraint firstItem="JiN-Xp-CAi" firstAttribute="top" secondItem="C2h-I1-PdI" secondAttribute="bottom" priority="999" constant="32" id="I9Q-dG-PKr"/>
-                            <constraint firstItem="JiN-Xp-CAi" firstAttribute="leading" secondItem="prV-1P-odm" secondAttribute="leading" constant="20" id="JEV-ps-yjA"/>
                             <constraint firstItem="noa-Iy-utj" firstAttribute="top" secondItem="JiN-Xp-CAi" secondAttribute="bottom" constant="47.5" id="KRb-GA-xIL"/>
                             <constraint firstItem="noa-Iy-utj" firstAttribute="leading" secondItem="prV-1P-odm" secondAttribute="leading" constant="36" id="Kdm-cv-Xxm"/>
                             <constraint firstItem="prV-1P-odm" firstAttribute="trailing" secondItem="AR7-Qv-K5O" secondAttribute="trailing" constant="20" id="Mj6-pz-hoM"/>
@@ -216,6 +215,7 @@
                             <constraint firstItem="AR7-Qv-K5O" firstAttribute="top" secondItem="4dI-Fc-Whw" secondAttribute="bottom" constant="40" id="YKs-No-BJs"/>
                             <constraint firstItem="C2h-I1-PdI" firstAttribute="trailing" secondItem="prV-1P-odm" secondAttribute="trailing" id="hYM-OS-R83"/>
                             <constraint firstItem="AR7-Qv-K5O" firstAttribute="leading" secondItem="prV-1P-odm" secondAttribute="leading" constant="20" id="kDy-GT-hcH"/>
+                            <constraint firstItem="JiN-Xp-CAi" firstAttribute="leading" secondItem="prV-1P-odm" secondAttribute="leading" constant="36" id="mX7-Ju-zhn"/>
                             <constraint firstItem="C2h-I1-PdI" firstAttribute="top" secondItem="prV-1P-odm" secondAttribute="top" constant="60" id="qhB-uK-74C"/>
                             <constraint firstItem="prV-1P-odm" firstAttribute="trailing" secondItem="noa-Iy-utj" secondAttribute="trailing" constant="25" id="tCl-ws-TjW"/>
                         </constraints>
@@ -240,7 +240,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="En6-Q6-cnc">
                                 <rect key="frame" x="20" y="123.5" width="335" height="77.5"/>
-                                <mutableString key="text">Simulador Resorte ha sido desarrollado por estudiantes del Tecnológico de Monterrey durante el semestre Agosto Diciembre de 2019, como parte del curso Desarrollo de Aplicaciones para Dispositivos Móviles y asesorados por la maestra Yolanda Martínez Treviño.  </mutableString>
+                                <string key="text">Simulador Resorte ha sido desarrollado por estudiantes del Tecnológico de Monterrey durante el semestre Agosto Diciembre de 2019, como parte del curso Desarrollo de Aplicaciones para Dispositivos Móviles y asesorados por la maestra Yolanda Martínez Treviño.  </string>
                                 <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -613,7 +613,7 @@
                                 <rect key="frame" x="20" y="100" width="335" height="150"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fbi-fn-uGt">
-                                        <rect key="frame" x="0.0" y="1" width="162.5" height="147.5"/>
+                                        <rect key="frame" x="0.0" y="1" width="162.5" height="148"/>
                                         <color key="backgroundColor" red="0.83897227050000001" green="0.67858296630000003" blue="0.62690311669999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" backgroundImage="k.square.fill" catalog="system"/>
