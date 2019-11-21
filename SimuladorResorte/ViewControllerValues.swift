@@ -30,7 +30,7 @@ class ViewControllerValues: UIViewController,UITextFieldDelegate {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        tfValue.returnKeyType = .done
+        tfValue.returnKeyType = .send
         self.tfValue.delegate = self
         tfValue.text = "\(mass)"
         multiplier = 1000.0
@@ -58,6 +58,7 @@ class ViewControllerValues: UIViewController,UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool{
         textField.resignFirstResponder()
+        btnSimular.sendActions(for: .touchUpInside)
         return true
     }
     
