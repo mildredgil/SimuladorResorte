@@ -34,6 +34,9 @@ class ViewControllerPreguntas: UIViewController,UITextFieldDelegate {
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         generePregunta()
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(quitaTeclado))
+        view.addGestureRecognizer(tap)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool{
@@ -45,7 +48,7 @@ class ViewControllerPreguntas: UIViewController,UITextFieldDelegate {
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
+                self.view.frame.origin.y -= keyboardSize.height 
             }
         }
     }
@@ -54,6 +57,10 @@ class ViewControllerPreguntas: UIViewController,UITextFieldDelegate {
         if self.view.frame.origin.y != 0 {
             self.view.frame.origin.y = 0
         }
+    }
+    
+    @IBAction func quitaTeclado() {
+        view.endEditing(true)
     }
     
     func generePregunta () -> Void {

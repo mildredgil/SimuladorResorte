@@ -40,6 +40,12 @@ class ViewControllerValues: UIViewController,UITextFieldDelegate {
         btnMass.layer.cornerRadius = 5
         btnSimular.layer.cornerRadius = 5
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(quitaTeclado))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @IBAction func quitaTeclado() {
+        view.endEditing(true)
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
