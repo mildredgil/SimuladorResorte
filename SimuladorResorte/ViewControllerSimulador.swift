@@ -31,9 +31,8 @@ class ViewControllerSimulador: UIViewController {
     var timeRatio : Float = 1.0
     var elapsedTime : Float = 0.0
     
-    var xi : Float = 80.0 // Punto inicial
+    var xi : Float = 0.0 // Punto inicial
     var o : Float = 0.0 // Pi si esta compactado, 0 si esta estirado
-    var startingXCoord : CGFloat! // The coordinate where the mass started moving
     var equilibriumPoint : CGFloat! // The equilibrium point of the spring
     let shapeLayer = CAShapeLayer()
     let shapeLayerRule = CAShapeLayer()
@@ -57,7 +56,7 @@ class ViewControllerSimulador: UIViewController {
         btnReset.layer.cornerRadius = 4
         
         //set de spring figure
-        let figura = dibujarResorte(graphWidth: separado,width: CGFloat(150))
+        let figura = dibujarResorte(graphWidth: separado,width: CGFloat(ruleWidth / 2))
         let springColor = UIColor.init(red: 1, green: 132.0 / 255, blue: 150.0 / 255, alpha: 1)
         
         shapeLayer.path = figura.cgPath
@@ -67,43 +66,37 @@ class ViewControllerSimulador: UIViewController {
         shapeLayer.lineWidth = CGFloat(ancho)
         
         viewSpring.layer.addSublayer(shapeLayer)
-        
         let screenWidth  = UIScreen.main.fixedCoordinateSpace.bounds.width
         
         //set mass position
-        let whiteSpaceMass = Float(-8.0)
-        xi = Float(imgMass.frame.size.width)
-        startingXCoord = imgMass.frame.origin.x - CGFloat(xi + whiteSpaceMass)
-        equilibriumPoint = CGFloat(screenWidth/2.0 - CGFloat(11));
-        //print("Equilibrium pos is at: ", equilibriumPoint!)
-        updatePosicion()
+        equilibriumPoint = CGFloat(screenWidth/2.0);
         setRuleLines()
-        
         resetPos()
     }
     
     func moverResorte(width : CGFloat) {
         let figura = dibujarResorte(graphWidth: separado,width: width)
         shapeLayer.path = figura.cgPath
-        
+
         let springColor = UIColor.init(red: 1, green: 56.0 / 255, blue: 59.0 / 255, alpha: 1)
         shapeLayer.strokeColor = springColor.cgColor
         shapeLayer.setNeedsDisplay()
     }
     
     func dibujarResorte(graphWidth : CGFloat,width : CGFloat) -> UIBezierPath{
-        let height = CGFloat(70.0)
+        let height = CGFloat(50.0)
         let amplitude: CGFloat = 0.2   // Amplitude of sine wave is 30% of view height
         let origin = CGPoint(x: 0, y: height * 0.50)
 
         let path = UIBezierPath()
         path.move(to: origin)
-
-        for angle in stride(from: 0.0, through: 50 * 360.0, by: 5.0) {
+        
+        for angle in stride(from: 0.0, to: Double(Float(imgMass.frame.origin.x) / Float(width * graphWidth)) * 360.0, by: 5.0) {
             let x = origin.x + CGFloat(angle/360.0) * width * graphWidth
             let y = origin.y - CGFloat(sin(angle/180.0 * Double.pi)) * height * amplitude
             path.addLine(to: CGPoint(x: x, y: y))
         }
+        
         
         return path
     }
@@ -174,17 +167,17 @@ class ViewControllerSimulador: UIViewController {
     func resetPos() {
         elapsedTime = 0.0
         o = 0.0
-        xi = 80.0
+        xi = 0.0
+        equilibriumPoint = CGFloat(ruleWidth/2.0)
         
         let newRect = CGRect(origin: CGPoint(x: CGFloat(Float(equilibriumPoint!) + xi), y: CGFloat(imgMass.frame.origin.y)), size: imgMass.frame.size)
         
-        let figura = dibujarResorte(graphWidth: 0.02,width: CGFloat(150))
+        updatePosicion()
+        let figura = dibujarResorte(graphWidth: 0.02,width: CGFloat(ruleWidth / 2))
         
         imgMass.frame = newRect
         shapeLayer.path = figura.cgPath
         shapeLayer.lineWidth = CGFloat(0.95)
-        
-        updatePosicion()
     }
     
     func onBtnTap(_ sender: UIButton) {
@@ -205,7 +198,6 @@ class ViewControllerSimulador: UIViewController {
         let posActual = getPosActual(xi: xi, k: Float(constantK), m: Float(mass)/1000, o: o, t: elapsedTime)
         let movement = Float(equilibriumPoint) + posActual
         
-        //print("equilibrium point: ", equilibriumPoint!)
         if(movement > maxMovement) {
             maxMovement = movement
         }
@@ -213,13 +205,10 @@ class ViewControllerSimulador: UIViewController {
         if(movement < minMovement) {
             minMovement = movement
         }
-        //print("Max movement: ", maxMovement)
-        //print("Min movement: ", minMovement)
-
-        moverResorte(width: CGFloat(movement))
         
         let newRect = CGRect(origin: CGPoint(x: CGFloat(movement), y: CGFloat(imgMass.frame.origin.y)), size: imgMass.frame.size)
         imgMass.frame = newRect
+        moverResorte(width: CGFloat(movement))
     }
     
     func getPosActual( xi: Float, k: Float, m: Float, o: Float, t: Float) -> Float{
@@ -322,7 +311,6 @@ class ViewControllerSimulador: UIViewController {
     }
     
     func moveRuleNumber(num : String, x : CGFloat, y : CGFloat, pos : Int) {
-        //print(num, "pos", x)
         if lbNumbersArr.count <= pos {
             lbNumbersArr.append(addRuleNumber(num: num, x: x, y: y))
         } else {
@@ -400,7 +388,7 @@ class ViewControllerSimulador: UIViewController {
 
         //set new mass position
         xi = Float(imgMass.frame.origin.x) - Float(equilibriumPoint)
-        print(xi)
+        
         if (xi < 0) {
             o = Float.pi
         } else {
