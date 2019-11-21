@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -382,6 +382,9 @@
                                             <outletCollection property="gestureRecognizers" destination="Qv5-5R-SbJ" appends="YES" id="CsJ-Up-SAC"/>
                                         </connections>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5VS-TH-3vc">
+                                        <rect key="frame" x="0.0" y="175" width="222" height="65.5"/>
+                                    </view>
                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wooden-box" translatesAutoresizingMaskIntoConstraints="NO" id="Oyc-OU-A2f">
                                         <rect key="frame" x="222" y="171" width="80" height="80"/>
                                         <constraints>
@@ -392,9 +395,6 @@
                                             <outletCollection property="gestureRecognizers" destination="WJt-Li-xOK" appends="YES" id="FOh-q9-5rA"/>
                                         </connections>
                                     </imageView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5VS-TH-3vc">
-                                        <rect key="frame" x="0.0" y="175" width="222" height="65.5"/>
-                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <gestureRecognizers/>
@@ -613,7 +613,7 @@
                                 <rect key="frame" x="20" y="100" width="335" height="150"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fbi-fn-uGt">
-                                        <rect key="frame" x="0.0" y="1" width="162.5" height="148"/>
+                                        <rect key="frame" x="0.0" y="1" width="162.5" height="147.5"/>
                                         <color key="backgroundColor" red="0.83897227050000001" green="0.67858296630000003" blue="0.62690311669999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" backgroundImage="k.square.fill" catalog="system"/>

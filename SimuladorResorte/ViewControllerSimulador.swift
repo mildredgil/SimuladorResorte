@@ -20,6 +20,8 @@ class ViewControllerSimulador: UIViewController {
     @IBOutlet weak var viewRule: UIView!
     @IBOutlet weak var viewSpring: UIView!
     
+    let ruleWidth = Float(UIScreen.main.bounds.width)
+    
     var btnSelected : UIButton!
     var mass : Int = 500
     var constantK : Int = 16
@@ -73,10 +75,9 @@ class ViewControllerSimulador: UIViewController {
         xi = Float(imgMass.frame.size.width)
         startingXCoord = imgMass.frame.origin.x - CGFloat(xi + whiteSpaceMass)
         equilibriumPoint = CGFloat(screenWidth/2.0 - CGFloat(11));
-        print("Equilibrium pos is at: ", equilibriumPoint!)
+        //print("Equilibrium pos is at: ", equilibriumPoint!)
         updatePosicion()
         setRuleLines()
-        print(xi)
         
         resetPos()
     }
@@ -168,8 +169,6 @@ class ViewControllerSimulador: UIViewController {
         mass = 500
         constantK = 16
         resetPos()
-        print(mass)
-        print(constantK)
     }
     
     func resetPos() {
@@ -206,7 +205,7 @@ class ViewControllerSimulador: UIViewController {
         let posActual = getPosActual(xi: xi, k: Float(constantK), m: Float(mass)/1000, o: o, t: elapsedTime)
         let movement = Float(equilibriumPoint) + posActual
         
-        print("equilibrium point: ", equilibriumPoint!)
+        //print("equilibrium point: ", equilibriumPoint!)
         if(movement > maxMovement) {
             maxMovement = movement
         }
@@ -214,8 +213,8 @@ class ViewControllerSimulador: UIViewController {
         if(movement < minMovement) {
             minMovement = movement
         }
-        print("Max movement: ", maxMovement)
-        print("Min movement: ", minMovement)
+        //print("Max movement: ", maxMovement)
+        //print("Min movement: ", minMovement)
 
         moverResorte(width: CGFloat(movement))
         
@@ -262,7 +261,7 @@ class ViewControllerSimulador: UIViewController {
     }
     
     func setRuleLines() {
-        let ruleWidth = UIScreen.main.bounds.width
+        //let ruleWidth = UIScreen.main.bounds.width
         let lineHeight = CGFloat(20.0)
         let center = Int(ruleWidth / 2)
         let path = UIBezierPath()
@@ -296,9 +295,8 @@ class ViewControllerSimulador: UIViewController {
         }
         
         //draw layer
-        //let shapeLayer2 = CAShapeLayer()
         shapeLayerRule.path = path.cgPath
-        shapeLayerRule.frame = CGRect(x: 1, y: 0, width: ruleWidth
+        shapeLayerRule.frame = CGRect(x: 1, y: 0, width: Int(ruleWidth)
             , height: 20)
         shapeLayerRule.strokeColor = UIColor.black.cgColor
         shapeLayerRule.fillColor = UIColor.white.cgColor
@@ -324,8 +322,8 @@ class ViewControllerSimulador: UIViewController {
     }
     
     func moveRuleNumber(num : String, x : CGFloat, y : CGFloat, pos : Int) {
+        //print(num, "pos", x)
         if lbNumbersArr.count <= pos {
-            print(pos, lbNumbersArr.count)
             lbNumbersArr.append(addRuleNumber(num: num, x: x, y: y))
         } else {
             let lbNumber = lbNumbersArr[pos]
@@ -334,8 +332,6 @@ class ViewControllerSimulador: UIViewController {
             lbNumber.textAlignment = .center //For center alignment
             lbNumber.sizeToFit()//If required
             lbNumber.frame.origin.x = lbNumber.frame.origin.x - lbNumber.frame.size.width / 2
-            
-            //lbNumbersArr.remove(at: pos)
         }
     }
     
@@ -347,7 +343,7 @@ class ViewControllerSimulador: UIViewController {
         var cont = 0
         
         //start drawing in the center to the right and left
-        for pos in stride(from: 0, to: center, by: 5) {
+        for pos in stride(from: 0, to: ruleWidth, by: 5) {
             var lineH = lineHeight
             let xRight = CGFloat(center + pos)
             let xLeft = CGFloat(center - pos)
@@ -382,33 +378,38 @@ class ViewControllerSimulador: UIViewController {
     
     @IBAction func onDragRules(_ sender: UIPanGestureRecognizer) {
         let translate : CGPoint = sender.translation(in: self.view)
-        if zeroPosition < 400 {
+        
+        //print(zeroPosition, ruleWidth, center)
+        if zeroPosition < (ruleWidth) && zeroPosition > 0.0 {
             zeroPosition += Float(translate.x)
             onChangeRuleLines()
-        } else {
-            zeroPosition -= 1
+        } else if zeroPosition > ruleWidth {
+            zeroPosition = ruleWidth - 10
+        } else if zeroPosition < 0.0 {
+            zeroPosition = 10
         }
         
         sender.setTranslation(CGPoint.zero, in: self.view)
     }
     
     @IBAction func onDragMass(_ sender: UIPanGestureRecognizer) {
-        let translate : CGPoint = sender.translation(in: self.view)
+        guard sender.view != nil else {return}
+        let piece = sender.view!
+     
+        let translate : CGPoint = sender.translation(in: piece.superview)
+
         imgMass.center.x += translate.x
-        
+        print(imgMass.center.x)
         //set new mass position
-        let whiteSpaceMass = Float(-8.0)
         xi = Float(imgMass.frame.origin.x) - Float(equilibriumPoint)
-        startingXCoord = imgMass.frame.origin.x - CGFloat(xi + whiteSpaceMass)
+        print(xi)
         if (xi < 0) {
             o = Float.pi
         } else {
             o = 0.0
         }
-        print(xi)
         
         moverResorte(width: imgMass.frame.origin.x)
-        
         sender.setTranslation(CGPoint.zero, in: self.view)
     }
     
