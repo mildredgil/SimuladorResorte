@@ -11,6 +11,7 @@ import UIKit
 class ViewControllerPreguntas: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var lbPregunta: UILabel!
     @IBOutlet weak var tfRespuesta: UITextField!
+    @IBOutlet weak var lbError: UILabel!
     
     var tipoPreguntas : [String] = ["Periodo", "Posicion", "Frecuencia"]
     var respuestaCorrecta : Float!
@@ -27,6 +28,7 @@ class ViewControllerPreguntas: UIViewController,UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        lbError.isHidden = true
         tfRespuesta.returnKeyType = .send
         self.tfRespuesta.delegate = self
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -99,6 +101,8 @@ class ViewControllerPreguntas: UIViewController,UITextFieldDelegate {
     
     @IBAction func btnConfirmar(_ sender: Any) {
         if let respuestaUsuario = Float(tfRespuesta.text!) {
+            lbError.isHidden = true
+            
             let min = respuestaCorrecta - respuestaCorrecta * 0.05
             let max = respuestaCorrecta + respuestaCorrecta * 0.05
             
@@ -120,6 +124,8 @@ class ViewControllerPreguntas: UIViewController,UITextFieldDelegate {
             //Desplegar la alerta
             present(alerta, animated: true,completion: nil)
 
+        } else {
+            lbError.isHidden = false
         }
     }
     
