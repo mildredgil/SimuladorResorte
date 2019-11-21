@@ -20,6 +20,8 @@ class ViewControllerSimulador: UIViewController {
     @IBOutlet weak var viewRule: UIView!
     @IBOutlet weak var viewSpring: UIView!
     
+    let ruleWidth = Float(UIScreen.main.bounds.width)
+    
     var btnSelected : UIButton!
     var mass : Int = 500
     var constantK : Int = 16
@@ -29,13 +31,15 @@ class ViewControllerSimulador: UIViewController {
     var timeRatio : Float = 1.0
     var elapsedTime : Float = 0.0
     
-    var xi : Float = 80.0 // Punto inicial
+    var xi : Float = 0.0 // Punto inicial
     var o : Float = 0.0 // Pi si esta compactado, 0 si esta estirado
-    var startingXCoord : CGFloat! // The coordinate where the mass started moving
     var equilibriumPoint : CGFloat! // The equilibrium point of the spring
     let shapeLayer = CAShapeLayer()
+    let shapeLayerRule = CAShapeLayer()
     var separado = CGFloat(0.02)
     var ancho : CGFloat = 0.95
+    var zeroPosition = Float((UIScreen.main.bounds.width) / 2.0)
+    var lbNumbersArr = [UILabel]()
     
     //Debugging vars
     var maxMovement : Float = 0.0
@@ -52,7 +56,7 @@ class ViewControllerSimulador: UIViewController {
         btnReset.layer.cornerRadius = 4
         
         //set de spring figure
-        let figura = dibujarResorte(graphWidth: separado,width: CGFloat(150))
+        let figura = dibujarResorte(graphWidth: separado,width: CGFloat(ruleWidth / 2))
         let springColor = UIColor.init(red: 1, green: 132.0 / 255, blue: 150.0 / 255, alpha: 1)
         
         shapeLayer.path = figura.cgPath
@@ -62,44 +66,37 @@ class ViewControllerSimulador: UIViewController {
         shapeLayer.lineWidth = CGFloat(ancho)
         
         viewSpring.layer.addSublayer(shapeLayer)
-        
         let screenWidth  = UIScreen.main.fixedCoordinateSpace.bounds.width
         
         //set mass position
-        let whiteSpaceMass = Float(-8.0)
-        xi = Float(imgMass.frame.size.width)
-        startingXCoord = imgMass.frame.origin.x - CGFloat(xi + whiteSpaceMass)
-        equilibriumPoint = CGFloat(screenWidth/2.0 - CGFloat(11));
-        print("Equilibrium pos is at: ", equilibriumPoint!)
-        updatePosicion()
+        equilibriumPoint = CGFloat(screenWidth/2.0);
         setRuleLines()
-        print(xi)
-        
         resetPos()
     }
     
     func moverResorte(width : CGFloat) {
         let figura = dibujarResorte(graphWidth: separado,width: width)
         shapeLayer.path = figura.cgPath
-        
+
         let springColor = UIColor.init(red: 1, green: 56.0 / 255, blue: 59.0 / 255, alpha: 1)
         shapeLayer.strokeColor = springColor.cgColor
         shapeLayer.setNeedsDisplay()
     }
     
     func dibujarResorte(graphWidth : CGFloat,width : CGFloat) -> UIBezierPath{
-        let height = CGFloat(70.0)
+        let height = CGFloat(50.0)
         let amplitude: CGFloat = 0.2   // Amplitude of sine wave is 30% of view height
         let origin = CGPoint(x: 0, y: height * 0.50)
 
         let path = UIBezierPath()
         path.move(to: origin)
-
-        for angle in stride(from: 0.0, through: 50 * 360.0, by: 5.0) {
+        
+        for angle in stride(from: 0.0, to: Double(Float(imgMass.frame.origin.x) / Float(width * graphWidth)) * 360.0, by: 5.0) {
             let x = origin.x + CGFloat(angle/360.0) * width * graphWidth
             let y = origin.y - CGFloat(sin(angle/180.0 * Double.pi)) * height * amplitude
             path.addLine(to: CGPoint(x: x, y: y))
         }
+        
         
         return path
     }
@@ -165,24 +162,22 @@ class ViewControllerSimulador: UIViewController {
         mass = 500
         constantK = 16
         resetPos()
-        print(mass)
-        print(constantK)
     }
     
     func resetPos() {
         elapsedTime = 0.0
         o = 0.0
-        xi = 80.0
+        xi = 0.0
+        equilibriumPoint = CGFloat(ruleWidth/2.0)
         
         let newRect = CGRect(origin: CGPoint(x: CGFloat(Float(equilibriumPoint!) + xi), y: CGFloat(imgMass.frame.origin.y)), size: imgMass.frame.size)
         
-        let figura = dibujarResorte(graphWidth: 0.02,width: CGFloat(150))
+        updatePosicion()
+        let figura = dibujarResorte(graphWidth: 0.02,width: CGFloat(ruleWidth / 2))
         
         imgMass.frame = newRect
         shapeLayer.path = figura.cgPath
         shapeLayer.lineWidth = CGFloat(0.95)
-        
-        updatePosicion()
     }
     
     func onBtnTap(_ sender: UIButton) {
@@ -203,7 +198,6 @@ class ViewControllerSimulador: UIViewController {
         let posActual = getPosActual(xi: xi, k: Float(constantK), m: Float(mass)/1000, o: o, t: elapsedTime)
         let movement = Float(equilibriumPoint) + posActual
         
-        print("equilibrium point: ", equilibriumPoint!)
         if(movement > maxMovement) {
             maxMovement = movement
         }
@@ -211,13 +205,10 @@ class ViewControllerSimulador: UIViewController {
         if(movement < minMovement) {
             minMovement = movement
         }
-        print("Max movement: ", maxMovement)
-        print("Min movement: ", minMovement)
-
-        moverResorte(width: CGFloat(movement))
         
         let newRect = CGRect(origin: CGPoint(x: CGFloat(movement), y: CGFloat(imgMass.frame.origin.y)), size: imgMass.frame.size)
         imgMass.frame = newRect
+        moverResorte(width: CGFloat(movement))
     }
     
     func getPosActual( xi: Float, k: Float, m: Float, o: Float, t: Float) -> Float{
@@ -259,7 +250,7 @@ class ViewControllerSimulador: UIViewController {
     }
     
     func setRuleLines() {
-        let ruleWidth = UIScreen.main.bounds.width
+        //let ruleWidth = UIScreen.main.bounds.width
         let lineHeight = CGFloat(20.0)
         let center = Int(ruleWidth / 2)
         let path = UIBezierPath()
@@ -274,9 +265,11 @@ class ViewControllerSimulador: UIViewController {
             if Int(pos) % 50 == 0 {
                 lineH = 1.8 * lineHeight
                 
-                addRuleNumber(num : "\(pos / 10)", x : xRight, y : y + lineH)
+                let lbNumberR = addRuleNumber(num : "\(pos / 10)", x : xRight, y : y + lineH)
+                lbNumbersArr.append(lbNumberR)
                 if(pos != 0) {
-                    addRuleNumber(num : "-\(pos / 10)", x : xLeft, y : y + lineH)
+                    let lbNumberL = addRuleNumber(num : "-\(pos / 10)", x : xLeft, y : y + lineH)
+                    lbNumbersArr.append(lbNumberL)
                 }
                 
             } else if Int(pos) % 25 == 0 {
@@ -291,17 +284,16 @@ class ViewControllerSimulador: UIViewController {
         }
         
         //draw layer
-        let shapeLayer2 = CAShapeLayer()
-        shapeLayer2.path = path.cgPath
-        shapeLayer2.frame = CGRect(x: 1, y: 0, width: ruleWidth
+        shapeLayerRule.path = path.cgPath
+        shapeLayerRule.frame = CGRect(x: 1, y: 0, width: Int(ruleWidth)
             , height: 20)
-        shapeLayer2.strokeColor = UIColor.black.cgColor
-        shapeLayer2.fillColor = UIColor.white.cgColor
-        shapeLayer2.lineWidth = CGFloat(ancho)
-        viewRule.layer.addSublayer(shapeLayer2)
+        shapeLayerRule.strokeColor = UIColor.black.cgColor
+        shapeLayerRule.fillColor = UIColor.white.cgColor
+        shapeLayerRule.lineWidth = CGFloat(ancho)
+        viewRule.layer.addSublayer(shapeLayerRule)
     }
     
-    func addRuleNumber(num : String, x : CGFloat, y : CGFloat) {
+    func addRuleNumber(num : String, x : CGFloat, y : CGFloat) -> UILabel {
         let lbl = UILabel(frame: CGRect(x: x, y: y, width: 23, height: 20))
         lbl.textAlignment = .center //For center alignment
         lbl.text = num
@@ -315,29 +307,95 @@ class ViewControllerSimulador: UIViewController {
         lbl.frame.origin.x = lbl.frame.origin.x - lbl.frame.size.width / 2
         
         viewRule.addSubview(lbl)
+        return lbl
+    }
+    
+    func moveRuleNumber(num : String, x : CGFloat, y : CGFloat, pos : Int) {
+        if lbNumbersArr.count <= pos {
+            lbNumbersArr.append(addRuleNumber(num: num, x: x, y: y))
+        } else {
+            let lbNumber = lbNumbersArr[pos]
+            lbNumber.frame.origin = CGPoint(x : x, y : y)
+            lbNumber.text = num
+            lbNumber.textAlignment = .center //For center alignment
+            lbNumber.sizeToFit()//If required
+            lbNumber.frame.origin.x = lbNumber.frame.origin.x - lbNumber.frame.size.width / 2
+        }
+    }
+    
+    func onChangeRuleLines() {
+        let center = zeroPosition
+        let lineHeight = CGFloat(20.0)
+        let path = UIBezierPath()
+        let y = CGFloat(0.0)
+        var cont = 0
+        
+        //start drawing in the center to the right and left
+        for pos in stride(from: 0, to: ruleWidth, by: 5) {
+            var lineH = lineHeight
+            let xRight = CGFloat(center + pos)
+            let xLeft = CGFloat(center - pos)
+            
+            if Int(pos) % 50 == 0 {
+                lineH = 1.8 * lineHeight
+                
+                moveRuleNumber(num : "\(Int(pos / 10))", x : xRight, y : y + lineH, pos : cont)
+                cont += 1
+                
+                if(pos != 0) {
+                    moveRuleNumber(num : "-\(Int(pos / 10))", x : xLeft, y : y + lineH, pos : cont)
+                    cont += 1
+                }
+                
+            } else if Int(pos) % 25 == 0 {
+                lineH = 1.5 * lineHeight
+            }
+            
+            path.move(to: CGPoint(x: xRight, y: y))
+            path.addLine(to: CGPoint(x: xRight, y: y + lineH))
+            
+            path.move(to: CGPoint(x: xLeft, y: y))
+            path.addLine(to: CGPoint(x: xLeft, y: y + lineH))
+        }
+        
+        //redraw layer
+        shapeLayerRule.path = path.cgPath
+        shapeLayerRule.strokeColor = UIColor.black.cgColor
+        shapeLayerRule.setNeedsDisplay()
     }
     
     @IBAction func onDragRules(_ sender: UIPanGestureRecognizer) {
+        if ruleWidth >= zeroPosition, zeroPosition >= 0.0 {
+            let translate : CGPoint = sender.translation(in: self.view)
+            zeroPosition += Float(translate.x)
+            onChangeRuleLines()
+        } else if zeroPosition > ruleWidth {
+            zeroPosition = ruleWidth - 10
+        } else if zeroPosition < 0.0 {
+            zeroPosition = 10
+        }
         
+        sender.setTranslation(CGPoint.zero, in: self.view)
     }
     
     @IBAction func onDragMass(_ sender: UIPanGestureRecognizer) {
-        let translate : CGPoint = sender.translation(in: self.view)
+        guard sender.view != nil else {return}
+        let piece = sender.view!
+     
+        let translate : CGPoint = sender.translation(in: piece.superview)
+
         imgMass.center.x += translate.x
-        
+
         //set new mass position
-        let whiteSpaceMass = Float(-8.0)
         xi = Float(imgMass.frame.origin.x) - Float(equilibriumPoint)
-        startingXCoord = imgMass.frame.origin.x - CGFloat(xi + whiteSpaceMass)
+        
         if (xi < 0) {
             o = Float.pi
         } else {
             o = 0.0
         }
-        print(xi)
         
         moverResorte(width: imgMass.frame.origin.x)
-        
         sender.setTranslation(CGPoint.zero, in: self.view)
     }
     

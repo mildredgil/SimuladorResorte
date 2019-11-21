@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -406,19 +406,19 @@
                                             <outletCollection property="gestureRecognizers" destination="Qv5-5R-SbJ" appends="YES" id="CsJ-Up-SAC"/>
                                         </connections>
                                     </view>
-                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wooden-box" translatesAutoresizingMaskIntoConstraints="NO" id="Oyc-OU-A2f">
-                                        <rect key="frame" x="222" y="171" width="80" height="80"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5VS-TH-3vc">
+                                        <rect key="frame" x="0.0" y="191.5" width="187.5" height="49"/>
+                                    </view>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wooden-box-1" translatesAutoresizingMaskIntoConstraints="NO" id="Oyc-OU-A2f">
+                                        <rect key="frame" x="187.5" y="181.5" width="60" height="60"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="80" id="cIQ-fU-YY6"/>
-                                            <constraint firstAttribute="height" constant="80" id="wIP-hg-sKq"/>
+                                            <constraint firstAttribute="width" constant="60" id="cIQ-fU-YY6"/>
+                                            <constraint firstAttribute="height" constant="60" id="wIP-hg-sKq"/>
                                         </constraints>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="WJt-Li-xOK" appends="YES" id="FOh-q9-5rA"/>
                                         </connections>
                                     </imageView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5VS-TH-3vc">
-                                        <rect key="frame" x="0.0" y="175" width="222" height="65.5"/>
-                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <gestureRecognizers/>
@@ -427,12 +427,12 @@
                                     <constraint firstAttribute="trailing" secondItem="NCe-bO-Eb6" secondAttribute="trailing" id="DT9-A4-r0U"/>
                                     <constraint firstAttribute="bottom" secondItem="NCe-bO-Eb6" secondAttribute="bottom" id="Mbp-IA-yKh"/>
                                     <constraint firstItem="NCe-bO-Eb6" firstAttribute="leading" secondItem="ts2-J4-Mnb" secondAttribute="leading" id="MqR-3b-fc8"/>
-                                    <constraint firstAttribute="trailing" secondItem="Oyc-OU-A2f" secondAttribute="trailing" constant="73" id="Z10-g1-axG"/>
+                                    <constraint firstItem="Oyc-OU-A2f" firstAttribute="leading" secondItem="ts2-J4-Mnb" secondAttribute="centerX" id="ejm-6i-dUe"/>
                                     <constraint firstItem="5VS-TH-3vc" firstAttribute="leading" secondItem="NCe-bO-Eb6" secondAttribute="leading" id="ggk-SJ-a54"/>
                                     <constraint firstItem="Oyc-OU-A2f" firstAttribute="leading" secondItem="5VS-TH-3vc" secondAttribute="trailing" id="kBx-kc-Tej"/>
                                     <constraint firstAttribute="bottom" secondItem="NCe-bO-Eb6" secondAttribute="bottom" id="o1G-N0-KMP"/>
                                     <constraint firstItem="5VS-TH-3vc" firstAttribute="height" secondItem="Oyc-OU-A2f" secondAttribute="height" multiplier="0.82" id="uXh-k9-X4f"/>
-                                    <constraint firstItem="NCe-bO-Eb6" firstAttribute="top" secondItem="Oyc-OU-A2f" secondAttribute="bottom" constant="-10.5" id="vGw-uZ-U7T"/>
+                                    <constraint firstItem="NCe-bO-Eb6" firstAttribute="top" secondItem="Oyc-OU-A2f" secondAttribute="bottom" constant="-1" id="vGw-uZ-U7T"/>
                                     <constraint firstAttribute="bottom" secondItem="NCe-bO-Eb6" secondAttribute="bottom" id="wSt-D5-nL1"/>
                                 </constraints>
                             </view>
@@ -637,7 +637,7 @@
                                 <rect key="frame" x="20" y="100" width="335" height="150"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fbi-fn-uGt">
-                                        <rect key="frame" x="0.0" y="1" width="162.5" height="148"/>
+                                        <rect key="frame" x="0.0" y="1" width="162.5" height="147.5"/>
                                         <color key="backgroundColor" red="0.83897227050000001" green="0.67858296630000003" blue="0.62690311669999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" backgroundImage="k.square.fill" catalog="system"/>
@@ -759,6 +759,6 @@
         <image name="stop.fill" catalog="system" width="64" height="56"/>
         <image name="teamwork" width="512" height="512"/>
         <image name="weight-black" width="512" height="512"/>
-        <image name="wooden-box" width="626" height="626"/>
+        <image name="wooden-box-1" width="475" height="462"/>
     </resources>
 </document>
