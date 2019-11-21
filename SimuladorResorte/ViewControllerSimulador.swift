@@ -377,10 +377,8 @@ class ViewControllerSimulador: UIViewController {
     }
     
     @IBAction func onDragRules(_ sender: UIPanGestureRecognizer) {
-        let translate : CGPoint = sender.translation(in: self.view)
-        
-        //print(zeroPosition, ruleWidth, center)
-        if zeroPosition < (ruleWidth) && zeroPosition > 0.0 {
+        if ruleWidth >= zeroPosition, zeroPosition >= 0.0 {
+            let translate : CGPoint = sender.translation(in: self.view)
             zeroPosition += Float(translate.x)
             onChangeRuleLines()
         } else if zeroPosition > ruleWidth {
@@ -399,7 +397,7 @@ class ViewControllerSimulador: UIViewController {
         let translate : CGPoint = sender.translation(in: piece.superview)
 
         imgMass.center.x += translate.x
-        print(imgMass.center.x)
+
         //set new mass position
         xi = Float(imgMass.frame.origin.x) - Float(equilibriumPoint)
         print(xi)
