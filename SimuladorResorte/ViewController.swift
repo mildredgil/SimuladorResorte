@@ -51,5 +51,9 @@ class ViewController: UIViewController {
         } 
     }
 
+    override var shouldAutorotate: Bool {
+        return false
+    }
+
 }
 
